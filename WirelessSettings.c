@@ -132,14 +132,14 @@ void StripFrequencyTags(const char *source, char *dest, int maxLen) {
     strncpy(dest, source, maxLen - 1);
     dest[maxLen - 1] = 0;
     
-    /* Chercher et supprimer " (5GHz)" */
-    pos = strstr(dest, " (5GHz)");
+    /* Chercher et supprimer " (5 GHz)" */
+    pos = strstr(dest, " (5 GHz)");
     if (pos) {
         *pos = 0;
     }
     
-    /* Chercher et supprimer " (2.4GHz)" */
-    pos = strstr(dest, " (2.4GHz)");
+    /* Chercher et supprimer " (2.4 GHz)" */
+    pos = strstr(dest, " (2.4 GHz)");
     if (pos) {
         *pos = 0;
     }
@@ -438,7 +438,7 @@ int main(int argc, char **argv) {
             /* Menu About */
             LONG result;
             result = MUI_Request(app, win, 0, "About WirelessSettings", "_Visit GitHub|_OK",
-                        "\33c\33bWirelessSettings v1.1 (06.02.2026)\33n\n\n"
+                        "\33c\33bWirelessSettings v1.1\33n\n\n"
                         "WiFi Configuration Tool for AmigaOS\n\n"
                         "Renaud Schweingruber\n"
                         "renaud.schweingruber@protonmail.com\n\n"
