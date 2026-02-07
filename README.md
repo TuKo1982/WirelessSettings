@@ -1,6 +1,6 @@
 # WirelessSettings - Configuration WiFi pour AmigaOS
 
-## Version 1.1 avec scan des réseaux WiFi
+## Version 1.2 avec scan des réseaux WiFi
 
 ### Compilation
 
@@ -11,7 +11,7 @@ make
 
 #### Méthode 2 : Compilation directe
 ```bash
-gcc -noixemul -O2 -s -Wall -Wno-implicit-int -o WirelessSettings WirelessSettings_modified.c -lamiga
+gcc -noixemul -s -O2 -Wall -Wno-implicit-int -o WirelessSettings WirelessSettings_modified.c -lamiga
 ```
 
 **Note importante** : 
@@ -24,7 +24,6 @@ gcc -noixemul -O2 -s -Wall -Wno-implicit-int -o WirelessSettings WirelessSetting
 - MUI 3.8 ou supérieur (muimaster.library)
 - AmigaOS 3.x
 - La commande `ListNetworks` doit être disponible dans C:
-- La commande `wpa_passphrase` doit être disponible dans C:
 - **Optionnel** : OpenURL pour ouvrir le lien GitHub depuis le menu About
 
 ### Installation
@@ -41,6 +40,7 @@ copy WirelessSettings SYS:Prefs/
 ### Utilisation
 
 1. **Scanner les réseaux** : Cliquez sur le bouton "Scan" (la liste déroulante est grisée jusqu'au scan)
+   - *Note* : Le bouton Scan est désactivé si la commande C:ListNetworks n'est pas installée
 2. **Sélectionner un réseau** : Une fois le scan terminé, la liste s'active et vous pouvez choisir un réseau
 3. **Configurer** : Le SSID est automatiquement rempli (sans les mentions de fréquence)
 4. **Choisir le type de chiffrement** : Open / WEP / WPA/WPA2
@@ -55,8 +55,8 @@ Le fichier doit contenir un nom de réseau par ligne. Les mentions de fréquence
 
 ```
 MonReseau
-WiFi-Voisin (5GHz)
-Hotspot-Public (2.4GHz)
+WiFi-Voisin (5 GHz)
+Hotspot-Public (2.4 GHz)
 ```
 
 Dans l'exemple ci-dessus, si l'utilisateur sélectionne "WiFi-Voisin (5 GHz)", seul "WiFi-Voisin" sera copié dans le champ SSID.
@@ -80,6 +80,9 @@ Si votre périphérique ne supporte pas le scan des réseaux, l'application :
 - **ENV:WiFiNetworks** : Liste temporaire des réseaux scannés
 
 ### Changelog
+
+**v1.2** (07.02.26)
+- Bouton Scan désactivé si C:ListNetworks n'est pas installé
 
 **v1.1** (06.02.26)
 - Ajout du bouton SCAN

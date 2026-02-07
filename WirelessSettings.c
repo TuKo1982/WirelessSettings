@@ -18,7 +18,7 @@ typedef unsigned long IPTR;
 #endif
 
 /* Format: $VER: <Nom> <Ver>.<Rev> (<Date>) */
-const char verTag[] = "$VER: WirelessSettings 1.1 (06.02.26) Renaud Schweingruber";
+const char verTag[] = "$VER: WirelessSettings 1.2 (07.02.26) Renaud Schweingruber";
 
 #define PREFS_PATH "ENVARC:Sys/wireless.prefs"
 #define NETWORKS_PATH "ENV:WiFiNetworks"
@@ -33,6 +33,12 @@ struct Library *MUIMasterBase;
 /* --- UTILITAIRES --- */
 BOOL CheckPrefsExist(void) {
     BPTR lock = Lock(PREFS_PATH, SHARED_LOCK);
+    if (lock) { UnLock(lock); return TRUE; }
+    return FALSE;
+}
+
+BOOL CheckListNetworksExists(void) {
+    BPTR lock = Lock("C:ListNetworks", SHARED_LOCK);
     if (lock) { UnLock(lock); return TRUE; }
     return FALSE;
 }
@@ -292,6 +298,9 @@ int main(int argc, char **argv) {
     /* Le bouton Load est désactivé si le fichier n'existe pas */
     set(btnLoad, MUIA_Disabled, !CheckPrefsExist());
 
+    /* Le bouton Scan est désactivé si ListNetworks n'existe pas */
+    set(btnScan, MUIA_Disabled, !CheckListNetworksExists());
+
     /* La liste des réseaux est grisée jusqu'au premier scan */
     set(cycNetworks, MUIA_Disabled, TRUE);
 
@@ -438,7 +447,7 @@ int main(int argc, char **argv) {
             /* Menu About */
             LONG result;
             result = MUI_Request(app, win, 0, "About WirelessSettings", "_Visit GitHub|_OK",
-                        "\33c\33bWirelessSettings v1.1\33n\n\n"
+                        "\33c\33bWirelessSettings v1.2\33n\n"
                         "WiFi Configuration Tool for AmigaOS\n\n"
                         "Renaud Schweingruber\n"
                         "renaud.schweingruber@protonmail.com\n\n"
